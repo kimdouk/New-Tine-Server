@@ -26,6 +26,8 @@ public class User extends BaseEntity{
     @Column
     private String user_id;
 
+    @Column
+    private String email;
 
     @Column(columnDefinition = "TEXT")
     private String image;
@@ -45,15 +47,19 @@ public class User extends BaseEntity{
     private String providerId;
 
     @Builder
-    public User(Long id, String user_id, String image, Role role, String password, String provider, String providerId) {
+    public User(Long id, String username, String user_id, String email, String image, Role role, String password, String provider, String providerId) {
         this.id = id;
+        this.username = username;
         this.user_id = user_id;
+        this.email = email;
         this.image = image;
         this.role = role;
         this.password = password;
         this.provider = provider;
         this.providerId = providerId;
     }
+
+
 
     public User update(String username, String image){
         this.username = username;

@@ -1,6 +1,6 @@
 package com.umc.NewTine.dto.news.request;
 
-public class NewsRecentlyReturnRequest {
+public class NewsRecentRequest {
 
     private Long userId;
 

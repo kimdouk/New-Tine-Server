@@ -23,9 +23,21 @@ public class UserNewsHistory {
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    private Date viewed_at;
 
+    public Long getId() {
+        return id;
+    }
 
+    public long getUser_id() {
+        return user_id;
+    }
 
+    public long getNews_id() {
+        return news_id;
+    }
 
+    public Date getViewed_at() {
+        return viewed_at;
+    }
 }

@@ -7,6 +7,7 @@ import com.umc.NewTine.domain.user.UserRepository;
 import com.umc.NewTine.domain.usernewshistory.UserNewsHistory;
 import com.umc.NewTine.domain.usernewshistory.UserNewsHistoryRepository;
 import com.umc.NewTine.dto.news.request.NewsRecentRequest;
+import com.umc.NewTine.dto.news.response.NewsRankingResponse;
 import com.umc.NewTine.dto.news.response.NewsRecentResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,16 @@ public class NewsService {
                 .limit(5)
                 .collect(Collectors.toList());
 
+    }
+
+    @Transactional
+    public List<NewsRankingResponse> getRankingNews() {
+        List<News> newsList = newsRepository.findAllByOrderByViewDesc()
+                .orElse(List.of());
+        return newsList.stream()
+                .map(NewsRankingResponse::new)
+                .limit(3)
+                .collect(Collectors.toList());
     }
 
 

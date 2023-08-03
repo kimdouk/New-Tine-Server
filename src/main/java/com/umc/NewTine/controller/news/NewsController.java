@@ -17,14 +17,14 @@ public class NewsController {
         this.newsService = newsService;
     }
 
-    @GetMapping("/news/recent")
-    public List<NewsRecentResponse> getRecentNews(@RequestParam Long userId) {
+    @GetMapping("/news/{userId}/recent")
+    public List<NewsRecentResponse> getRecentNews(@PathVariable Long userId) {
         return newsService.getRecentNews(userId);
     }
 
-    @GetMapping("/news/{userId}/ranking")
-    public List<NewsRankingResponse> getRankingNews(@PathVariable Long userId) {
-        return newsService.getRankingNews(userId);
+    @GetMapping("/news/ranking")
+    public List<NewsRankingResponse> getRankingNews() {
+        return newsService.getRankingNews();
     }
 
     @PostMapping("/news")

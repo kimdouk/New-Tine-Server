@@ -1,6 +1,7 @@
 package com.umc.NewTine.controller.news;
 
 import com.umc.NewTine.dto.news.request.NewsRecentRequest;
+import com.umc.NewTine.dto.news.response.NewsRankingResponse;
 import com.umc.NewTine.dto.news.response.NewsRecentResponse;
 import com.umc.NewTine.service.news.NewsService;
 import org.springframework.web.bind.annotation.*;

@@ -4,11 +4,9 @@ import com.sun.istack.NotNull;
 import com.umc.NewTine.domain.news.News;
 import com.umc.NewTine.domain.user.User;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @NoArgsConstructor
 @Entity
@@ -27,7 +25,6 @@ public class UserNewsHistory {
     private News news;
 
     @Column
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime recentViewTime;
 
     public UserNewsHistory(User user, News news, LocalDateTime recentViewTime) {

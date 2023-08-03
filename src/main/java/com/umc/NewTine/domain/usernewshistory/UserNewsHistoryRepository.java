@@ -2,7 +2,6 @@ package com.umc.NewTine.domain.usernewshistory;
 
 import com.umc.NewTine.domain.news.News;
 import com.umc.NewTine.domain.user.User;
-import com.umc.NewTine.dto.news.response.NewsRecentResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

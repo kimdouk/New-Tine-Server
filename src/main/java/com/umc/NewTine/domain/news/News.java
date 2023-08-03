@@ -1,9 +1,13 @@
 package com.umc.NewTine.domain.news;
 
 import com.sun.istack.NotNull;
+import com.umc.NewTine.domain.usernewshistory.UserNewsHistory;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
+@NoArgsConstructor
 @Entity
 public class News {
 
@@ -28,18 +32,19 @@ public class News {
 
     @NotNull
     @Column
-    private Integer view;
+    private int views;
 
-    protected News() {
 
-    }
-    public News(Long id, String title, String content, long category_id, long press_id, Integer view) {
+    @OneToMany(mappedBy = "news")
+    private List<UserNewsHistory> userNewsHistories;
+
+    public News(Long id, String title, String content, long category_id, long press_id) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.category_id = category_id;
         this.press_id = press_id;
-        this.view = view;
+        this.views = 0;
     }
 
     public Long getId() {

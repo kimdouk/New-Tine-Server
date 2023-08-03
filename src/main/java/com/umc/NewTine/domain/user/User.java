@@ -2,10 +2,9 @@ package com.umc.NewTine.domain.user;
 
 //import com.umc.NewTine.domain.category.Category;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.umc.NewTine.domain.usernewshistory.UserNewsHistory;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +17,9 @@ public class User {
 
     private String name;
 //    private List<Category> categories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<UserNewsHistory> userNewsHistories;
 
     public Long getId() {
         return id;

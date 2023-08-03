@@ -1,11 +1,16 @@
 package com.umc.NewTine.domain.usernewshistory;
 
 import com.sun.istack.NotNull;
+import com.umc.NewTine.domain.news.News;
+import com.umc.NewTine.domain.user.User;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
+@NoArgsConstructor
 @Entity
 public class UserNewsHistory {
 
@@ -13,31 +18,26 @@ public class UserNewsHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = null;
 
-    @Column
     @NotNull
-    private long user_id;
+    @ManyToOne
+    private User user;
 
-    @Column
     @NotNull
-    private long news_id;
+    @ManyToOne
+    private News news;
 
     @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date viewed_at;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime recentViewTime;
 
-    public Long getId() {
-        return id;
+    public UserNewsHistory(User user, News news, LocalDateTime recentViewTime) {
+        this.user = user;
+        this.news = news;
+        this.recentViewTime = recentViewTime;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public void setRecentViewTime(LocalDateTime recentViewTime) {
+        this.recentViewTime = recentViewTime;
     }
 
-    public long getNews_id() {
-        return news_id;
-    }
-
-    public Date getViewed_at() {
-        return viewed_at;
-    }
 }

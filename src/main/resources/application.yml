@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: local
   datasource:
-    url: "jdbc:h2:mem:library;MODE=MYSQL;NON_KEYWORDS=USER"
+    url: "jdbc:h2:mem:newtine;MODE=MYSQL;NON_KEYWORDS=USER"
     username: "sa"
     password: ""
     driver-class-name: org.h2.Driver
@@ -25,9 +25,9 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: "jdbc:mysql://localhost/library?&useSSL=false&serverTimezone=UTC"
+    url: "jdbc:mysql://localhost/newtine"
     username: "root"
-    password: "AigkD7410~!"
+    password: "aigkd7410"
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

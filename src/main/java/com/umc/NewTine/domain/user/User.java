@@ -3,10 +3,12 @@ package com.umc.NewTine.domain.user;
 //import com.umc.NewTine.domain.category.Category;
 
 import com.umc.NewTine.domain.usernewshistory.UserNewsHistory;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
+@NoArgsConstructor
 @Entity
 public class User {
 

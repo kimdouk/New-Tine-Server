@@ -6,15 +6,21 @@ import com.umc.NewTine.domain.user.User;
 import com.umc.NewTine.domain.user.UserRepository;
 import com.umc.NewTine.domain.usernewshistory.UserNewsHistory;
 import com.umc.NewTine.domain.usernewshistory.UserNewsHistoryRepository;
+import com.umc.NewTine.dto.base.BaseException;
+import com.umc.NewTine.dto.base.BaseResponse;
 import com.umc.NewTine.dto.news.request.NewsRecentRequest;
 import com.umc.NewTine.dto.news.response.NewsRankingResponse;
 import com.umc.NewTine.dto.news.response.NewsRecentResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.umc.NewTine.dto.base.BaseResponseStatus.NO_NEWS_YET;
+import static com.umc.NewTine.dto.base.BaseResponseStatus.NO_USER_ID;
 
 @Service
 public class NewsService {
@@ -31,22 +37,22 @@ public class NewsService {
     }
 
     @Transactional
-    public List<NewsRecentResponse> getRecentNews(Long userId) {
+    public List<NewsRecentResponse> getRecentNews(Long userId) throws BaseException {
 
         User user = userRepository.findById(userId)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()->new BaseException(NO_USER_ID));
         List<News> newsList = userNewsHistoryRepository.findNewsByUserOrderByRecentViewTimeDesc(user)
                 .orElse(List.of());
         return newsList.stream()
                 .map(NewsRecentResponse::new)
-                .limit(5)
+                .limit(10)
                 .collect(Collectors.toList());
 
     }
 
     @Transactional
-    public List<NewsRankingResponse> getRankingNews() {
-        List<News> newsList = newsRepository.findAllByOrderByViewDesc()
+    public List<NewsRankingResponse> getRankingNews() throws BaseException {
+        List<News> newsList = newsRepository.findAllByOrderByViewsDesc()
                 .orElse(List.of());
         return newsList.stream()
                 .map(NewsRankingResponse::new)
@@ -56,12 +62,11 @@ public class NewsService {
 
 
     @Transactional
-    public void saveRecentViewTime(NewsRecentRequest request) {
-
+    public boolean saveRecentViewTime(NewsRecentRequest request) throws BaseException{
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow((IllegalArgumentException::new));
+                .orElseThrow(()->new BaseException(NO_USER_ID));
         News news = newsRepository.findById(request.getNewsId())
-                .orElseThrow((IllegalArgumentException::new));
+                .orElseThrow(()->new BaseException(NO_NEWS_YET));
         LocalDateTime recentViewTime = LocalDateTime.now();
         boolean isDuplicate = userNewsHistoryRepository.existsByUserAndNewsAndRecentViewTimeBetween(user, news, recentViewTime.minusMinutes(1), recentViewTime);
 
@@ -73,6 +78,10 @@ public class NewsService {
                 .orElseGet(() -> new UserNewsHistory(user, news, recentViewTime));
         userNewsHistory.setRecentViewTime(recentViewTime);
         userNewsHistoryRepository.save(userNewsHistory);
+        return true;
+
+
+
 
     }
 

@@ -1,7 +1,5 @@
 package com.umc.NewTine.domain.user;
 
-//import com.umc.NewTine.domain.category.Category;
-
 import com.umc.NewTine.domain.usernewshistory.UserNewsHistory;
 
 import javax.persistence.*;

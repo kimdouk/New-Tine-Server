@@ -40,6 +40,15 @@ public class NewsController {
         }
     }
 
+    @GetMapping("/search")
+    public BaseResponse<List<NewsSearchByWordResponse>> searchNewsByWord() {
+        try {
+            return new BaseResponse<>(newsService.searchNewsByWord());
+        } catch (BaseException e) {
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
     @PostMapping("/news")
     public BaseResponse<Void> saveRecentViewTime(@RequestBody NewsRecentRequest request) {
         try {

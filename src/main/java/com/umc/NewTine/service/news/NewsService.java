@@ -60,6 +60,13 @@ public class NewsService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<NewsSearchByWordResponse> searchNewsByWord(String word) throws BaseException {
+        List<News> newsList = newsRepository.findByTitleContaining(word)
+                .orElse(List.of());
+    }
+
+
 
     @Transactional
     public boolean saveRecentViewTime(NewsRecentRequest request) throws BaseException{

@@ -41,9 +41,9 @@ public class NewsController {
     }
 
     @GetMapping("/search")
-    public BaseResponse<List<NewsSearchByWordResponse>> searchNewsByWord() {
+    public BaseResponse<List<NewsSearchByWordResponse>> searchNewsByWord(@RequestParam String word) {
         try {
-            return new BaseResponse<>(newsService.searchNewsByWord());
+            return new BaseResponse<>(newsService.searchNewsByWord(word));
         } catch (BaseException e) {
             return new BaseResponse<>(e.getStatus());
         }

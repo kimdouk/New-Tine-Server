@@ -5,6 +5,7 @@ import com.umc.NewTine.dto.base.BaseResponse;
 import com.umc.NewTine.dto.news.request.NewsRecentRequest;
 import com.umc.NewTine.dto.news.response.NewsRankingResponse;
 import com.umc.NewTine.dto.news.response.NewsRecentResponse;
+import com.umc.NewTine.dto.news.response.NewsSearchByWordResponse;
 import com.umc.NewTine.service.news.NewsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

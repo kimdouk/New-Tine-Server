@@ -11,6 +11,7 @@ import com.umc.NewTine.dto.base.BaseResponse;
 import com.umc.NewTine.dto.news.request.NewsRecentRequest;
 import com.umc.NewTine.dto.news.response.NewsRankingResponse;
 import com.umc.NewTine.dto.news.response.NewsRecentResponse;
+import com.umc.NewTine.dto.news.response.NewsSearchByWordResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,8 +63,12 @@ public class NewsService {
 
     @Transactional
     public List<NewsSearchByWordResponse> searchNewsByWord(String word) throws BaseException {
-        List<News> newsList = newsRepository.findByTitleContaining(word)
+        List<News> newsList = newsRepository.findNewsByTitleContaining(word)
                 .orElse(List.of());
+        return newsList.stream()
+                .map(NewsSearchByWordResponse::new)
+                .limit(5)
+                .collect(Collectors.toList());
     }
 
 
